@@ -1,12 +1,14 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
+    id 'jacoco'
 }
 
 group 'io.github.iromul.microsm'
 version '0.1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 repositories {
     jcenter()
@@ -62,3 +64,12 @@ publishing {
         }
     }
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = false
+    }
+}
+
+check.dependsOn jacocoTestReport
