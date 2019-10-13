@@ -1,5 +1,7 @@
 package io.github.iromul.microsm.transition;
 
+import io.github.iromul.microsm.IllFormedStateMachine;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BooleanSupplier;
@@ -28,6 +30,10 @@ public class Choice<S> {
     }
 
     public S findFirstAllowedTarget() {
+        if (otherwiseTarget == null) {
+            throw new IllFormedStateMachine("Choice has no otherwise state!");
+        }
+
         return guardedTargets.stream()
                 .filter(pair -> pair.getGuard().getAsBoolean())
                 .findFirst()
